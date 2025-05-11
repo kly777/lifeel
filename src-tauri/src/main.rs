@@ -2,5 +2,8 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    lifeel_lib::run()
+    println!("Application started");
+
+
+    lifeel_lib::run();
 }

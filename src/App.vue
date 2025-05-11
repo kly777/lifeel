@@ -47,6 +47,11 @@ async function greet() {
 
 </style>
 <style>
+*{
+  border: #24c8db solid 1px;
+}
+
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
