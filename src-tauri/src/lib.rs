@@ -1,7 +1,6 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 
 use dbsql::{get_todos, main, Todo};
-use tokio::task::futures;
 
 
 pub mod dbsql;
