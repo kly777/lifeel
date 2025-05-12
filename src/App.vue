@@ -19,31 +19,50 @@ async function fetchTodos() {
     console.error("Error fetching todos:", error);
   }
 }
+// 新增响应式数据
+const newTodoTitle = ref("");
 
-const greetMsg = ref("");
-const name = ref("");
+// 新增创建函数
+async function addTodo() {
+  if (!newTodoTitle.value.trim()) return;
 
-async function greet() {
-  greetMsg.value = await invoke("greet", { name: name.value });
+  try {
+    await invoke("create_todo", {
+      title: newTodoTitle.value.trim(),
+      completed: false // 默认未完成
+    });
+    newTodoTitle.value = "";
+    await fetchTodos(); // 刷新列表
+  } catch (error) {
+    console.error("创建失败:", error);
+  }
 }
 
+async function deleteTodo(id: number) {
+  try {
+    await invoke("delete_todo", { id });
+    await fetchTodos(); // 刷新列表
+  } catch (error) {
+    console.error("删除失败:", error);
+  }
+}
 fetchTodos();
 </script>
 
 <template>
   <main class="container">
     <h1>Welcome</h1>
-
-    <form class="row" @submit.prevent="greet">
-      <input id="greet-input" v-model="name" placeholder="Enter a name..." />
-      <button type="submit">Greet</button>
+    <form class="row" @submit.prevent="addTodo">
+      <input v-model="newTodoTitle" placeholder="输入待办事项..." />
+      <button type="submit">添加</button>
     </form>
-    <p>{{ greetMsg }}</p>
+
 
     <ul>
       <h1>Todo</h1>
       <li v-for="todo in todos" :key="todo.id">
         {{ todo.title }} - {{ todo.completed ? "已完成" : "未完成" }}
+        <button @click="deleteTodo(todo.id)" class="delete-btn">×</button>
       </li>
     </ul>
   </main>
@@ -56,6 +75,14 @@ fetchTodos();
 
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #249b73);
+}
+
+.delete-btn {
+  margin-left: 10px;
+  color: #ff4444;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 </style>
 <style>
