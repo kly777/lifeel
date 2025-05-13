@@ -53,7 +53,7 @@ fetchTodos();
   <main class="container">
     <h1>Welcome</h1>
     <form class="row" @submit.prevent="addTodo">
-      <input v-model="newTodoTitle" placeholder="输入待办事项..." />
+      <input v-model.trim="newTodoTitle" placeholder="输入待办事项..." />
       <button type="submit">添加</button>
     </form>
 
@@ -67,33 +67,15 @@ fetchTodos();
     </ul>
   </main>
 </template>
-
 <style scoped>
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #249b73);
-}
-
-.delete-btn {
-  margin-left: 10px;
-  color: #ff4444;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-</style>
-<style>
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
 
-  color: #0f0f0f;
-  background-color: #f6f6f6;
+  color: #f8f8f8;
+  background-color: #f9f9f9;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -103,98 +85,136 @@ fetchTodos();
 }
 
 .container {
-  margin: 0;
+  margin: 0 auto;
   padding-top: 10vh;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: 0.75s;
-}
-
-.logo.tauri:hover {
-  filter: drop-shadow(0 0 2em #24c8db);
+h1 {
+  font-size: 2rem;
+  color: #396cd8;
+  margin-bottom: 1rem;
 }
 
 .row {
   display: flex;
   justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  text-align: center;
-}
-
-input,
-button {
+input {
+  flex: 1;
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #ddd;
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: 500;
   font-family: inherit;
-  color: #0f0f0f;
-  background-color: #ffffff;
-  transition: border-color 0.25s;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  color: #333;
+  background-color: #f9f9f9;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input:focus {
+  border-color: #396cd8;
+  box-shadow: 0 0 4px rgba(57, 108, 216, 0.5);
 }
 
 button {
+  border-radius: 8px;
+  border: none;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 600;
+  font-family: inherit;
+  color: #fff;
+  background-color: #396cd8;
+  transition: background-color 0.25s, transform 0.1s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
 button:hover {
-  border-color: #396cd8;
+  background-color: #2f5bbd;
 }
 
 button:active {
-  border-color: #396cd8;
-  background-color: #e8e8e8;
+  transform: scale(0.98);
 }
 
-input,
-button {
-  outline: none;
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
-#greet-input {
-  margin-right: 5px;
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-@media (prefers-color-scheme: dark) {
+li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.delete-btn {
+  margin-left: 10px;
+  color: #ff4444;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+.delete-btn:hover {
+  transform: scale(1.2);
+}
+
+/* @media (prefers-color-scheme: dark) {
   :root {
     color: #f6f6f6;
-    background-color: #2f2f2f;
+    background-color: #1b1b1b;
   }
 
-  a:hover {
-    color: #24c8db;
+  .container {
+    background: #fbfbfb;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
   input,
   button {
     color: #ffffff;
-    background-color: #0f0f0f98;
+    background-color: #444;
   }
 
-  button:active {
-    background-color: #0f0f0f69;
+  li {
+    background: #444;
+    border-color: #555;
   }
-}
+
+  button:hover {
+    background-color: #2f5bbd;
+  }
+} */
 </style>

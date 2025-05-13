@@ -13,10 +13,10 @@
     "windows": [
       {
         "title": "lifeel",
-        "width": 80,
-        "height": 60,
+        "width": 580,
+        "height": 760,
         "focus": false,
-        "alwaysOnTop": true,
+        "alwaysOnTop": false,
         "x": 0,
         "y": 0
       }

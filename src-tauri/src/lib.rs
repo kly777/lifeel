@@ -1,19 +1,18 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-
-use dbsql::{main, Todo};
-use sqlx::Error;
-pub mod dbsql;
+pub mod db;
+pub mod models;
+use models::todo::Todo;
 
 #[tauri::command]
 async fn fetch_todos() -> Result<Vec<Todo>, String> {
-    Todo::fetch_all().await.map_err(|e| e.to_string()) // 转换 sqlx::Error 为 String
+    Todo::fetch_all().await.map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 async fn create_todo(title: String, completed: bool) -> Result<Todo, String> {
     Todo::create(&title, completed)
         .await
-        .map_err(|e| e.to_string()) // 转换 sqlx::Error 为 String
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -29,7 +28,7 @@ fn greet(name: &str) -> String {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    main();
+    let _ = db::init::init();
 
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
